@@ -1,0 +1,23 @@
+const mongoose = require("mongoose");
+
+const TransactionSchema = new mongoose.Schema({
+  uniqId: {
+    type: String,
+    required: true,
+  },
+  text: {
+    type: String,
+    trim: true,
+    required: [true, "Please add some text"],
+  },
+  amount: {
+    type: Number,
+    required: [true, "Please add amount"],
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+module.exports = mongoose.model("Transaction", TransactionSchema);

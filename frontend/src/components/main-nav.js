@@ -17,15 +17,7 @@ const MainNav = () => (
       className="nav-link"
       activeClassName="router-link-exact-active"
     >
-      Profile
-    </NavLink>
-    <NavLink
-      to="/external-api"
-      exact
-      className="nav-link"
-      activeClassName="router-link-exact-active"
-    >
-      External API
+      Expense Tracker
     </NavLink>
   </div>
 );
