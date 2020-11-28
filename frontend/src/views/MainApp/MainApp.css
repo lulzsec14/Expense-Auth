@@ -224,3 +224,7 @@ input[type='number'] {
 .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
+.form-control {
+  height: auto;
+}

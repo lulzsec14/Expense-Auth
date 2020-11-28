@@ -1,13 +1,13 @@
-import React, { createContext, useReducer } from "react";
-import AppReducer from "./AppReducer";
-import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
+import React, { createContext, useReducer } from 'react';
+import AppReducer from './AppReducer';
+import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 
 // Initial state
 const initialState = {
   transactions: [],
   error: null,
-  loading: true,
+  loading: true
 };
 
 // Create context
@@ -22,15 +22,17 @@ export const GlobalProvider = ({ children }) => {
   async function getTransactions() {
     try {
       const uqid = user.email;
-      const res = await axios.get(`http://localhost:6060/api/v1/${uqid}`);
+      const res = await axios.get(
+        `http://localhost:6060/api/v1/transactions/${uqid}`
+      );
 
       dispatch({
-        type: "GET_TRANSACTIONS",
-        payload: res.data.data,
+        type: 'GET_TRANSACTIONS',
+        payload: res.data.data
       });
     } catch (err) {
       dispatch({
-        type: "TRANSACTION_ERROR",
+        type: 'TRANSACTION_ERROR'
         // payload: err.response.data.error,
       });
     }
@@ -38,16 +40,16 @@ export const GlobalProvider = ({ children }) => {
 
   async function deleteTransaction(id) {
     try {
-      const uqid = user.email;
+      const uqid = id;
       await axios.delete(`http://localhost:6060/api/v1/transactions/${uqid}`);
 
       dispatch({
-        type: "DELETE_TRANSACTION",
-        payload: uqid,
+        type: 'DELETE_TRANSACTION',
+        payload: uqid
       });
     } catch (err) {
       dispatch({
-        type: "TRANSACTION_ERROR",
+        type: 'TRANSACTION_ERROR'
         // payload: err.response.data.error,
       });
     }
@@ -56,20 +58,24 @@ export const GlobalProvider = ({ children }) => {
   async function addTransaction(transaction) {
     const config = {
       headers: {
-        "Content-Type": "application/json",
-      },
+        'Content-Type': 'application/json'
+      }
     };
 
     try {
-      const res = await axios.post("http://localhost:6060/api/v1/transactions", transaction, config);
+      const res = await axios.post(
+        'http://localhost:6060/api/v1/transactions',
+        transaction,
+        config
+      );
 
       dispatch({
-        type: "ADD_TRANSACTION",
-        payload: res.data.data,
+        type: 'ADD_TRANSACTION',
+        payload: res.data.data
       });
     } catch (err) {
       dispatch({
-        type: "TRANSACTION_ERROR",
+        type: 'TRANSACTION_ERROR'
         // payload: err.response.data.error,
       });
     }
@@ -83,7 +89,7 @@ export const GlobalProvider = ({ children }) => {
         loading: state.loading,
         getTransactions,
         deleteTransaction,
-        addTransaction,
+        addTransaction
       }}
     >
       {children}
